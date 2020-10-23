@@ -1,0 +1,11 @@
+eclipse.preferences.version=1
+encoding//logs/debug.log=UTF-8
+encoding//logs/error.log=UTF-8
+encoding//logs/fatal.log=UTF-8
+encoding//logs/info.log=UTF-8
+encoding//logs/warn.log=UTF-8
+encoding//src/main/java=UTF-8
+encoding//src/main/resources=UTF-8
+encoding//src/main/resources/jdbc.properties=UTF-8
+encoding//src/test/java=UTF-8
+encoding/<project>=GBK

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd">
+
+	<context:annotation-config></context:annotation-config>
+	<context:component-scan
+		base-package="cn.xueao.toolweb.controller">
+		<context:include-filter type="annotation"
+			expression="org.springframework.stereotype.Controller" />
+	</context:component-scan>
+
+	<mvc:annotation-driven></mvc:annotation-driven>
+
+	<mvc:default-servlet-handler />
+
+	<!--定义视图模板引擎 -->
+	<!--org.thymeleaf.spring4.templateresolver.SpringResourceTemplateResolver -->
+	<!--org.thymeleaf.templateresolver.ServletContextTemplateResolver -->
+	<bean id="templateResolver"
+		class="org.thymeleaf.spring4.templateresolver.SpringResourceTemplateResolver">
+		<property name="prefix" value="/WEB-INF/templates/" />
+		<property name="suffix" value=".html" />
+		<property name="templateMode" value="HTML5" />
+		<property name="cacheable" value="false" /> <!-- 缓存 -->
+		<property name="characterEncoding" value="UTF-8" /> <!--解决中文乱码 -->
+	</bean>
+	<bean id="templateEngine"
+		class="org.thymeleaf.spring4.SpringTemplateEngine">
+		<property name="templateResolver" ref="templateResolver" />
+	</bean>
+	<!--thymeleaf layout插件 -->
+	<bean class="org.thymeleaf.spring4.view.ThymeleafViewResolver">
+		<property name="templateEngine" ref="templateEngine" />
+		<property name="characterEncoding" value="UTF-8" /> <!--解决中文乱码 -->
+	</bean>
+
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver"></bean>
+
+	<mvc:interceptors>
+		<!-- <mvc:interceptor> <mvc:mapping path="/fore*" /> <bean class="interceptor.LoginInterceptor"></bean> 
+			</mvc:interceptor> <mvc:interceptor> <mvc:mapping path="/fore*" /> <bean 
+			class="interceptor.OtherInterceptor"></bean> </mvc:interceptor> -->
+		<mvc:interceptor>
+			<mvc:mapping path="/fore*" />
+			<bean class="cn.xueao.toolweb.incterceptor.MessageIncterceptor"></bean>
+		</mvc:interceptor>
+	</mvc:interceptors>
+	<!--启用shiro注解 -->
+	<bean
+        class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"
+        depends-on="lifecycleBeanPostProcessor">
+        <property name="proxyTargetClass" value="true" />
+    </bean>
+    <bean
+        class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+        <property name="securityManager" ref="securityManager" />
+    </bean>
+
+</beans>

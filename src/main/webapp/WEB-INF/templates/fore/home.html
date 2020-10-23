@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<link th:href="@{static/css/fore/style.css}" rel="stylesheet" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>首页</title>
+
+<head th:include="include/header :: head">
+</head>
+<body>
+	<div th:replace="include/header :: headerAndRight"></div>
+	<div th:replace="include/homePage :: homePage1"></div>
+	<script type="text/javascript" th:inline="none">
+$(function() {
+	$("[data-toggle='tooltip']").tooltip();
+});
+</script>
+</body>
+</html>

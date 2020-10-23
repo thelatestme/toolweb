@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<link th:href="@{static/css/fore/style.css}" rel="stylesheet" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>美图</title>
+
+<head th:include="include/header :: head">
+</head>
+
+<body>
+	<div th:replace="include/header :: headerAndRight"></div>
+	<div th:replace="include/picturePage :: picturePage1"></div>
+</body>
+</html>
